@@ -35,6 +35,7 @@ public class Producer {
 				Cliente cliente = new Cliente();
 				cliente.setCodigo(Long.parseLong(String.valueOf(i)));
 				cliente.setNome("Cliente "+i);
+				out.reset();
 				writer.write(cliente, EncoderFactory.get().directBinaryEncoder(out, null));
 				producer.send(new ProducerRecord<String, Object>("test", "chave"+i, out.toByteArray()));
 			}			
