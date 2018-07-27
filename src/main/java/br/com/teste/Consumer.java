@@ -26,7 +26,7 @@ public class Consumer {
 		
 		KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(props);
 		
-		Schema s = ReflectData.get().getSchema(Cliente.class);
+		Schema s = ReflectData.AllowNull.get().getSchema(Cliente.class);
 		ReflectDatumReader<Object> reader = new ReflectDatumReader<Object>(s);
 
         consumer.subscribe(Arrays.asList("test"));

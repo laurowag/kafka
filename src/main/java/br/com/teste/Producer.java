@@ -26,7 +26,7 @@ public class Producer {
 		KafkaProducer<String, Object> producer = new KafkaProducer<>(props);
 		
 		
-		Schema s = ReflectData.get().getSchema(Cliente.class);
+		Schema s = ReflectData.AllowNull.get().getSchema(Cliente.class);
 		ReflectDatumWriter<Object> writer = new ReflectDatumWriter<Object>(s);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
