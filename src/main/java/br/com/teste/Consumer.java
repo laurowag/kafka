@@ -17,12 +17,16 @@ public class Consumer {
 	public static void main(String[] args) throws IOException {
 		
 		Properties props = new Properties();
-		props.put("bootstrap.servers", "localhost:9092");
+		props.put("bootstrap.servers", "35.184.40.26:9092");
 		props.put("group.id","test");
 		props.put("enable.auto.commit","true");
 		props.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
 		props.put("value.deserializer","org.apache.kafka.common.serialization.ByteArrayDeserializer");
 		props.put("max.partition.fetch.bytes","2097152");		
+		
+		props.put("sasl.jaas.config","org.apache.kafka.common.security.plain.PlainLoginModule required username=\"admin\" password=\"admin-password\";");
+		props.put("security.protocol","SASL_PLAINTEXT");
+		props.put("sasl.mechanism","PLAIN");
 		
 		KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(props);
 		

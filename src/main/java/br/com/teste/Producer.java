@@ -16,14 +16,20 @@ public class Producer {
 	public static void main(String[] args) throws IOException {
 		
 		Properties props = new Properties();
-		props.put("bootstrap.servers", "localhost:9092");
+		props.put("bootstrap.servers", "35.184.40.26:9092");
 		props.put("group.id","test");
 		props.put("enable.auto.commit","true");
 		props.put("key.serializer","org.apache.kafka.common.serialization.StringSerializer");
 		props.put("value.serializer","org.apache.kafka.common.serialization.ByteArraySerializer");
 		props.put("max.partition.fetch.bytes","2097152");
 		
+		props.put("sasl.jaas.config","org.apache.kafka.common.security.plain.PlainLoginModule required username=\"admin\" password=\"admin-password\";");
+		props.put("security.protocol","SASL_PLAINTEXT");
+		props.put("sasl.mechanism","PLAIN");
+		
+		System.out.println("****** Vai conectar");
 		KafkaProducer<String, Object> producer = new KafkaProducer<>(props);
+		System.out.println("****** Conectou");
 		
 		
 		Schema s = ReflectData.AllowNull.get().getSchema(Cliente.class);
@@ -31,7 +37,7 @@ public class Producer {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
 		try {
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 10; i++) {
 				Cliente cliente = new Cliente();
 				cliente.setCodigo(Long.parseLong(String.valueOf(i)));
 				cliente.setNome("Cliente "+i);
